@@ -13,23 +13,11 @@ class FTDgame():
         self.numSuits = numSuits
         self.cardsInDeck = (numSuits * valueRange)
         self.reValues = np.arange(valueRange)
-        # self.deck = np.full([1, valueRange], numSuits, dtype = int)
         self.deck = np.arange(valueRange)
         self.deck.fill(numSuits)
         self.board = np.zeros(valueRange)
         self.topCard = self.drawCard()
-        # self.initialize()
 
-    # def initialize(self):
-    #     # Creates a full deck of cards to play with, and an empty board to deal
-    #     # them to
-    #
-    #     for i in range(self.valueRange):
-    #         self.deck.append(self.numSuits)
-    #         self.board.append(0)
-    #
-    #     self.deck = np.array(self.deck)
-    #     self.board = np.array(self.board)
 
     def drawCard(self):
         # Draws a random card and removes it from the deck
@@ -124,7 +112,14 @@ def interactiveGamePlay():
         print("Board: ", game.board)
         print("Finished with {} points.".format(points))
 
+
+
 def binarySearch():
+    """
+    This method implements a vary naive algorithm for playing the game based on
+    the Binary Search algorithm. It picks the (ceiling function of (n/2)) index of
+    the array containing the elements corresponding to the value, yada yada yada
+    """
     print("Welcome to the binary search AI for Fuck the Dealer")
     numSuits = input("Please enter the desired number of suits (4 is standard, minimum is 1)\n")
     if numSuits == "":
@@ -143,6 +138,12 @@ def binarySearch():
     valueRange = int(valueRange)
     game = FTDgame(valueRange, numSuits)
 
+    print("Value range: 1 to {}, Number of suits: {}".format(valueRange, numSuits))
+
+    points = 0
+    while game.cardsInDeck >= 0:
+        # First guess portion
+        firstGuess = game.reValues
 
 
 def main():
