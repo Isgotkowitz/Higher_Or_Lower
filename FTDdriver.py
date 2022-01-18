@@ -143,12 +143,23 @@ def binarySearch():
     points = 0
     while game.cardsInDeck >= 0:
         # First guess portion
-        firstGuess = game.reValues
-
+        firstGuess = game.reValues[math.floor(game.reValues.size / 2)]
+        firstAnswer = game.firstGuess(firstGuess)
+        if firstAnswer == -5:
+            points -= 5
+            continue
+        # Second guess portion
+        if firstAnswer == 0:
+            secondGuess = game.reValues[math.floor(game.reValues.size / 4)]
+        else:
+            secondGuess = game.reValues[math.floor(game.reValues.size * (3/4))]
+        value, secondAnswer = game.secondGuess(secondGuess)
+        points += secondAnswer
+    print("Total points:", points)
 
 def main():
-    interactiveGamePlay()
-    # binarySearch()
+    # interactiveGamePlay()
+    binarySearch()
 
 if __name__ == "__main__":
     main()
