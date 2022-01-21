@@ -38,7 +38,7 @@ class FTDgame():
     def firstGuess(self, guess):
         self.topCard = self.drawCard()
         # Takes in first guess from the player
-        if guess == self.topCard:
+        if guess == self.topCard + 1:
             self.board[self.topCard] += 1
             # self.topCard = self.drawCard()
             return -5
@@ -49,7 +49,7 @@ class FTDgame():
 
     def secondGuess(self, guess):
         # Takes in second guess from the player
-        if guess == self.topCard:
+        if guess == self.topCard + 1:
             self.board[self.topCard] += 1
             # self.topCard = self.drawCard()
             return guess, -3
@@ -144,6 +144,7 @@ def binarySearch():
 
     points = 0
     while game.cardsInDeck > 0:
+        print("deck:", game.deck)
         print("reValues:", game.reValues)
         print("board:", game.board)
         reValues = game.reValues
@@ -154,6 +155,7 @@ def binarySearch():
         firstAnswer = game.firstGuess(firstGuess)
         if firstAnswer == -5:
             points -= 5
+            print("Correct")
             # continue
         # Second guess portion
         else:
@@ -165,6 +167,8 @@ def binarySearch():
                 secondGuess = reValues[math.floor(reValues.size * (3/4))] + 1
             value, secondAnswer = game.secondGuess(secondGuess)
             print("second guess:", secondGuess)
+            if value == secondGuess:
+                print("Correct")
             points += secondAnswer
             print("value:", value)
         print("\n")
