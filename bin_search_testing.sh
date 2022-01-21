@@ -9,7 +9,7 @@ read numTrial
 
 for ((counter = 1; counter <= $numTrial; counter++))
 do
-python FTDdriver.py
+python3 FTDdriver.py
 echo numSuits
 echo maxVal
 done
