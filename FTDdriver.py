@@ -1,9 +1,7 @@
 """
 Driver for a modified version of the drinking card game Fuck the Dealer
 """
-# import os
 import sys
-# sys.path.append(".")
 import random as rand
 import math
 import numpy as np
@@ -31,7 +29,7 @@ def interactiveGamePlay():
         print("Value range: 1 to {}, Number of suits: {}".format(valueRange, numSuits))
         # print("Deck: ", game.deck)
         points = 0
-        while game.cardsInDeck >= 0:
+        while game.cardsInDeck > 0:
             # print("Deck: ", game.deck)
             print("Board: ", game.board)
             # print("Top card: ", (game.topCard + 1))
@@ -124,8 +122,8 @@ def binarySearch():
     print("Total points:", points)
 
 def main():
-    # interactiveGamePlay()
-    binarySearch()
+    interactiveGamePlay()
+    # binarySearch()
 
 if __name__ == "__main__":
     main()
