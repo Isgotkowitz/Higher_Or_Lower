@@ -5,7 +5,7 @@ import sys
 import random as rand
 import math
 import numpy as np
-from FTDgame import *
+from HOL_game import *
 
 def interactiveGamePlay():
         print("Welcome to the interactive game play mode of Fuck the Dealer")
