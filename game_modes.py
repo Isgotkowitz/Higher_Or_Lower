@@ -5,7 +5,7 @@ import sys
 import random as rand
 import math
 import numpy as np
-from HOL_game import *
+from game import *
 
 def interactiveGamePlay():
         print("Welcome to the interactive game play mode of Fuck the Dealer")
@@ -121,9 +121,31 @@ def binarySearch():
         print("\n")
     print("Total points:", points)
 
-def main():
-    interactiveGamePlay()
-    # binarySearch()
+def binarySearchNP(numSuits, valueRange):
+    """
+    This method implements a vary naive algorithm for playing the game based on
+    the Binary Search algorithm. It picks the (ceiling function of (n/2)) index of
+    the array containing the elements corresponding to the value, yada yada yada.
+    This version is intended to be used multiple times to find averages
+    """
+    game = FTDgame(valueRange, numSuits)
 
-if __name__ == "__main__":
-    main()
+    points = 0
+    while game.cardsInDeck > 0:
+        reValues = game.reValues
+        # First guess portion
+        firstGuess = reValues[math.floor(reValues.size * (1/2))] + 1
+        # firstGuess = game.reValues[math.floor(game.reValues.size / 2)]
+        firstAnswer = game.firstGuess(firstGuess)
+        if firstAnswer == -5:
+            points -= 5
+            # continue
+        # Second guess portion
+        else:
+            if firstAnswer == 0:
+                secondGuess = reValues[math.floor(reValues.size * (1/4))] + 1
+            else:
+                secondGuess = reValues[math.floor(reValues.size * (3/4))] + 1
+            value, secondAnswer = game.secondGuess(secondGuess)
+            points += secondAnswer
+    return points
