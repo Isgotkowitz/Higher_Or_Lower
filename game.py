@@ -1,9 +1,7 @@
 """
-Modified version of the drinking card game Fuck the Dealer
+Modified version of the drinking card game Higher Or Lower
 """
-import sys
 import random as rand
-import math
 import numpy as np
 
 class FTDgame():
@@ -16,7 +14,6 @@ class FTDgame():
         self.deck = np.arange(valueRange)
         self.deck.fill(numSuits)
         self.board = np.zeros(valueRange)
-        # self.topCard = self.drawCard()
 
     def drawCard(self):
         # Draws a random card and removes it from the deck
@@ -38,7 +35,6 @@ class FTDgame():
         # Takes in first guess from the player
         if guess == self.topCard:
             self.board[self.topCard] += 1
-            # self.topCard = self.drawCard()
             return -5
         elif guess > self.topCard:
             return 0
@@ -49,11 +45,9 @@ class FTDgame():
         # Takes in second guess from the player
         if guess == self.topCard:
             self.board[self.topCard] += 1
-            # self.topCard = self.drawCard()
             return guess, -3
         else:
             points = abs(self.topCard - guess)
             TC = self.topCard
             self.board[self.topCard] += 1
-            # self.topCard = self.drawCard()
             return TC, points
