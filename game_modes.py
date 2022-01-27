@@ -109,7 +109,6 @@ def binarySearch():
                 print("Higher")
                 secondGuess = reValues[math.floor(reValues.size * (3/4))]
             value, secondAnswer = game.secondGuess(secondGuess)
-            value
             print("second guess:", secondGuess + 1)
             if value == secondGuess:
                 print("Correct")
