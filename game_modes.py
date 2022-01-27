@@ -93,28 +93,29 @@ def binarySearch():
         print("board:", game.board)
         reValues = game.reValues
         # First guess portion
-        firstGuess = reValues[math.floor(reValues.size * (1/2))] + 1
-        print("first guess:", firstGuess)
+        firstGuess = reValues[math.floor(reValues.size * (1/2))]
+        print("first guess:", firstGuess + 1)
         # firstGuess = game.reValues[math.floor(game.reValues.size / 2)]
         firstAnswer = game.firstGuess(firstGuess)
         if firstAnswer == -5:
             points -= 5
             print("Correct")
-            # continue
         # Second guess portion
         else:
             if firstAnswer == 0:
                 print("Lower")
-                secondGuess = reValues[math.floor(reValues.size * (1/4))] + 1
+                secondGuess = reValues[math.floor(reValues.size * (1/4))]
             else:
                 print("Higher")
-                secondGuess = reValues[math.floor(reValues.size * (3/4))] + 1
+                secondGuess = reValues[math.floor(reValues.size * (3/4))]
             value, secondAnswer = game.secondGuess(secondGuess)
-            print("second guess:", secondGuess)
+            value
+            print("second guess:", secondGuess + 1)
             if value == secondGuess:
                 print("Correct")
+            else:
+                print("value:", value + 1)
             points += secondAnswer
-            print("value:", value)
         print("\n")
     print("Total points:", points)
 
