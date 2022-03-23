@@ -1,16 +1,21 @@
 """
-Provides the main file from which testing and gameplay are run
+Provides the main file from which testing is run
 """
 from game_modes import *
+import numpy as np
 
 def main():
-    # interactiveGamePlay()
-    # binarySearch()
     numGames = 20000
-    totalPoints = 0
+    points = np.zeros(numGames)
     for i in range(numGames):
-        totalPoints += binarySearchNP(1, 20)
-    print("average points over {} games: {}".format(numGames, totalPoints / numGames))
+        points[i] = binarySearchNP(1, 20)
+    mean = np.mean(points)
+    median = np.median(points)
+    stddev = np.std(points)
+    print("\nOver {} games:".format(numGames))
+    print("Mean = {}".format(mean))
+    print("Median = {}".format(median))
+    print("Standard deviation = {}\n".format(stddev))
 
 if __name__ == "__main__":
     main()
