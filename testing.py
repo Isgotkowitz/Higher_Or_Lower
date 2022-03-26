@@ -6,13 +6,28 @@ import numpy as np
 
 def main():
     numGames = 20000
+    print("\nOver {} games:\n".format(numGames))
+
+    # Test simple binary seerch algorithm
     points = np.zeros(numGames)
     for i in range(numGames):
-        points[i] = binarySearchNP(1, 20)
+        points[i] = binarySearchNP(4, 13)
     mean = np.mean(points)
     median = np.median(points)
     stddev = np.std(points)
-    print("\nOver {} games:".format(numGames))
+    print("Simple binary search results:")
+    print("Mean = {}".format(mean))
+    print("Median = {}".format(median))
+    print("Standard deviation = {}\n".format(stddev))
+
+    # Test optimal algorithm
+    points = np.zeros(numGames)
+    for i in range(numGames):
+        points[i] = binarySearchNP(4, 13)
+    mean = np.mean(points)
+    median = np.median(points)
+    stddev = np.std(points)
+    print("Optimal algorithm results:")
     print("Mean = {}".format(mean))
     print("Median = {}".format(median))
     print("Standard deviation = {}\n".format(stddev))

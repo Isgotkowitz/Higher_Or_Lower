@@ -4,7 +4,7 @@ Modified version of the drinking card game Higher Or Lower
 import random as rand
 import numpy as np
 
-class FTDgame():
+class HOLgame():
     """ Object representation of deck of cards being played with """
     def __init__(self, valueRange, numSuits):
         self.valueRange = valueRange

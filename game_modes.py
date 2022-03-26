@@ -23,13 +23,15 @@ def interactiveGamePlay():
 
         numSuits = int(numSuits)
         valueRange = int(valueRange)
-        game = FTDgame(valueRange, numSuits)
+        game = HOLgame(valueRange, numSuits)
 
         print("Value range: 1 to {}, Number of suits: {}".format(valueRange, numSuits))
         # print("Deck: ", game.deck)
         points = 0
         while game.cardsInDeck > 0:
             print("Board: ", game.board)
+            print("Deck: ", game.deck)
+            print("reValues ", game.reValues)
             firstGuess = input("First Guess: ")
             while not (firstGuess.isdigit() and int(firstGuess) >= 1 and int(firstGuess) <= valueRange):
                 firstGuess = input("Whoops please enter a positive integer in the range 1 to max value\n")
@@ -82,7 +84,7 @@ def binarySearch():
 
     numSuits = int(numSuits)
     valueRange = int(valueRange)
-    game = FTDgame(valueRange, numSuits)
+    game = HOLgame(valueRange, numSuits)
 
     print("Value range: 1 to {}, Number of suits: {}".format(valueRange, numSuits))
 
@@ -123,9 +125,10 @@ def binarySearchNP(numSuits, valueRange):
     This method implements a vary naive algorithm for playing the game based on
     the Binary Search algorithm. It picks the (ceiling function of (n/2)) index of
     the array containing the elements corresponding to the value, yada yada yada.
-    This version is intended to be used multiple times to find averages
+    This version is intended to be used multiple times to find averages and other
+    statistics
     """
-    game = FTDgame(valueRange, numSuits)
+    game = HOLgame(valueRange, numSuits)
 
     points = 0
     while game.cardsInDeck > 0:
@@ -144,3 +147,53 @@ def binarySearchNP(numSuits, valueRange):
             value, secondAnswer = game.secondGuess(secondGuess)
             points += secondAnswer
     return points
+
+def Opt(numSuits, valueRange):
+    """
+    Function that makes guess with lowest expected points on every guess
+    """
+    game = HOLgame(valueRange, numSuits)
+
+    points = 0
+    while game.cardsInDeck > 0:
+        # Generate optimal first guess
+        points_matrix = np.zeros((game.reValues.size, game.reValues.size))
+        for i in range(game.reValues.size):
+            for j in range(game.reValues.size):
+                if i == j:
+                    points_matrix[i][j] = -5
+                else:
+                    points_matrix[i][j] = abs(game.reValues[i] - game.reValues[j])
+        prob_vector = np.zeros(game.reValues.size)
+        j = 0
+        for i in range(game.deck.size):
+            if game.deck[i] != 0:
+                prob_vector[j] = game.deck[i]
+                j += 1
+        ex_points_matrix = points_matrix@prob_vector
+        firstGuess = 0
+        for i in range(1, len(ex_points_matrix)):
+            if ex_points_matrix[i] < ex_points_matrix[firstGuess]:
+                firstGuess = i
+        firstGuess += 1
+        firstAnswer = game.firstGuess(firstGuess)
+        # Generate optimal second guess
+        if firstAnswer == -5:
+            points -= 5
+        else:
+            if firstAnswer == 0:
+                secondGuess = 0
+                for i in range(0, firstGuess):
+                    if ex_points_matrix[i] < ex_points_matrix[secondGuess]:
+                        secondGuess = i
+                secondGuess += 1
+            else:
+                secondGuess = 0
+                for i in range(firstGuess, len(ex_points_matrix)):
+                    if ex_points_matrix[i] < ex_points_matrix[secondGuess]:
+                        secondGuess = i
+                secondGuess += 1
+            value, secondAnswer = game.secondGuess(secondGuess)
+            points += secondAnswer
+
+    return points;
