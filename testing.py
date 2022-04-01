@@ -6,7 +6,7 @@ from game_modes import *
 def main():
     # interactiveGamePlay()
     # binarySearch()
-    numGames = 1000
+    numGames = 20000
     totalPoints = 0
     for i in range(numGames):
         totalPoints += binarySearchNP(4, 13)

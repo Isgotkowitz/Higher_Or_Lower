@@ -1,7 +1,6 @@
 """
-Driver for a modified version of the drinking card game Fuck the Dealer
+Driver methods for a modified version of the drinking card game Higher Or Lower
 """
-import sys
 import random as rand
 import math
 import numpy as np
@@ -30,9 +29,7 @@ def interactiveGamePlay():
         # print("Deck: ", game.deck)
         points = 0
         while game.cardsInDeck > 0:
-            # print("Deck: ", game.deck)
             print("Board: ", game.board)
-            # print("Top card: ", (game.topCard + 1))
             firstGuess = input("First Guess: ")
             while not (firstGuess.isdigit() and int(firstGuess) >= 1 and int(firstGuess) <= valueRange):
                 firstGuess = input("Whoops please enter a positive integer in the range 1 to max value\n")
@@ -96,28 +93,28 @@ def binarySearch():
         print("board:", game.board)
         reValues = game.reValues
         # First guess portion
-        firstGuess = reValues[math.floor(reValues.size * (1/2))] + 1
-        print("first guess:", firstGuess)
+        firstGuess = reValues[math.floor(reValues.size * (1/2))]
+        print("first guess:", firstGuess + 1)
         # firstGuess = game.reValues[math.floor(game.reValues.size / 2)]
         firstAnswer = game.firstGuess(firstGuess)
         if firstAnswer == -5:
             points -= 5
             print("Correct")
-            # continue
         # Second guess portion
         else:
             if firstAnswer == 0:
                 print("Lower")
-                secondGuess = reValues[math.floor(reValues.size * (1/4))] + 1
+                secondGuess = reValues[math.floor(reValues.size * (1/4))]
             else:
                 print("Higher")
-                secondGuess = reValues[math.floor(reValues.size * (3/4))] + 1
+                secondGuess = reValues[math.floor(reValues.size * (3/4))]
             value, secondAnswer = game.secondGuess(secondGuess)
-            print("second guess:", secondGuess)
+            print("second guess:", secondGuess + 1)
             if value == secondGuess:
                 print("Correct")
+            else:
+                print("value:", value + 1)
             points += secondAnswer
-            print("value:", value)
         print("\n")
     print("Total points:", points)
 
@@ -135,11 +132,9 @@ def binarySearchNP(numSuits, valueRange):
         reValues = game.reValues
         # First guess portion
         firstGuess = reValues[math.floor(reValues.size * (1/2))] + 1
-        # firstGuess = game.reValues[math.floor(game.reValues.size / 2)]
         firstAnswer = game.firstGuess(firstGuess)
         if firstAnswer == -5:
             points -= 5
-            # continue
         # Second guess portion
         else:
             if firstAnswer == 0:
