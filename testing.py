@@ -11,7 +11,7 @@ def main():
     # Test simple binary seerch algorithm
     points = np.zeros(numGames)
     for i in range(numGames):
-        points[i] = binarySearchNP(4, 13)
+        points[i] = binarySearch(4, 13)
     mean = np.mean(points)
     median = np.median(points)
     stddev = np.std(points)
@@ -23,7 +23,7 @@ def main():
     # Test optimal algorithm
     points = np.zeros(numGames)
     for i in range(numGames):
-        points[i] = binarySearchNP(4, 13)
+        points[i] = Opt(4, 13)
     mean = np.mean(points)
     median = np.median(points)
     stddev = np.std(points)
