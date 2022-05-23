@@ -4,14 +4,17 @@ Provides the main file from which testing is run
 from game_modes import *
 import numpy as np
 
+NUM_GAMES = 20000
+NUM_SUITS = 4
+VAL_RANGE = 13
+
 def main():
-    numGames = 20000
-    print("\nOver {} games:\n".format(numGames))
+    print("\nOver {} games played with {} suits and max value of {}:\n".format(NUM_GAMES, NUM_SUITS, VAL_RANGE))
 
     # Test simple binary seerch algorithm
-    points = np.zeros(numGames)
-    for i in range(numGames):
-        points[i] = binarySearch(4, 13)
+    points = np.zeros(NUM_GAMES)
+    for i in range(NUM_GAMES):
+        points[i] = binarySearch(NUM_SUITS, VAL_RANGE)
     mean = np.mean(points)
     median = np.median(points)
     stddev = np.std(points)
@@ -21,9 +24,9 @@ def main():
     print("Standard deviation = {}\n".format(stddev))
 
     # Test optimal algorithm
-    points = np.zeros(numGames)
-    for i in range(numGames):
-        points[i] = Opt(4, 13)
+    points = np.zeros(NUM_GAMES)
+    for i in range(NUM_GAMES):
+        points[i] = Opt(NUM_SUITS, VAL_RANGE)
     mean = np.mean(points)
     median = np.median(points)
     stddev = np.std(points)
