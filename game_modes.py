@@ -13,13 +13,13 @@ def interactiveGamePlay():
             numSuits = 4
         else:
             while not (numSuits.isdigit() and int(numSuits) > 0):
-                numSuits = input("Whoops please enter a positive integer\n")
+                numSuits = input("Please enter a positive integer\n")
         valueRange = input("Please enter the desired max value (13 is standard, minimum is 5)\n")
         if valueRange == "":
             valueRange = 13
         else:
             while not (valueRange.isdigit() and int(valueRange) > 4):
-                valueRange = input("Whoops please enter a positive integer greater than 4\n")
+                valueRange = input("Please enter a positive integer greater than 4\n")
 
         numSuits = int(numSuits)
         valueRange = int(valueRange)
