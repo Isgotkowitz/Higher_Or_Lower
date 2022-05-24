@@ -1,39 +1,52 @@
 """
 Provides the main file from which testing is run
 """
-from game_modes import *
 import numpy as np
 
-NUM_GAMES = 20000
-NUM_SUITS = 4
-VAL_RANGE = 13
+from game_modes import *
+from timeit import default_timer as timer
+
+NUM_GAMES = 20000   # Number of games each algorithm is tested over
+NUM_SUITS = 4       # Number of suits each game is played with
+VAL_RANGE = 13      # Defines the value range over which each game is played
+
+timed = 1           # Turn on to measure time tests take
+
+def get_data(arr):
+    data = []
+    data.append(np.mean(arr))
+    data.append(np.median(arr))
+    data.append(np.std(arr))
+    return data
 
 def main():
-    print("\nOver {} games played with {} suits and max value of {}:\n".format(NUM_GAMES, NUM_SUITS, VAL_RANGE))
+    print("\nOver {} games played sequentially with {} suits and max value of {}:\n".format(NUM_GAMES, NUM_SUITS, VAL_RANGE))
 
     # Test simple binary seerch algorithm
-    points = np.zeros(NUM_GAMES)
+    bs_points = np.zeros(NUM_GAMES)
+    if timed: bs_start = timer()
     for i in range(NUM_GAMES):
-        points[i] = binarySearch(NUM_SUITS, VAL_RANGE)
-    mean = np.mean(points)
-    median = np.median(points)
-    stddev = np.std(points)
+        bs_points[i] = binarySearch(NUM_SUITS, VAL_RANGE)
+    if timed: bs_end = timer()
+    bs_data = get_data(bs_points)
     print("Simple binary search results:")
-    print("Mean = {}".format(mean))
-    print("Median = {}".format(median))
-    print("Standard deviation = {}\n".format(stddev))
+    print("Mean = {:.5f}".format(bs_data[0]))
+    print("Median = {:.0f}".format(bs_data[1]))
+    print("Standard deviation = {:.5f}\n".format(bs_data[2]))
+    if timed: print("time elapsed for testing: {:.8f} seconds\n".format(bs_end - bs_start))
 
     # Test optimal algorithm
-    points = np.zeros(NUM_GAMES)
+    opt_points = np.zeros(NUM_GAMES)
+    if timed: opt_start = timer()
     for i in range(NUM_GAMES):
-        points[i] = Opt(NUM_SUITS, VAL_RANGE)
-    mean = np.mean(points)
-    median = np.median(points)
-    stddev = np.std(points)
+        opt_points[i] = Opt(NUM_SUITS, VAL_RANGE)
+    if timed: opt_end = timer()
+    opt_data = get_data(opt_points)
     print("Optimal algorithm results:")
-    print("Mean = {}".format(mean))
-    print("Median = {}".format(median))
-    print("Standard deviation = {}\n".format(stddev))
+    print("Mean = {:.5f}".format(opt_data[0]))
+    print("Median = {:.0f}".format(opt_data[1]))
+    print("Standard deviation = {:.5f}\n".format(opt_data[2]))
+    if timed: print("time elapsed for testing: {:.8f} seconds\n".format(opt_end - opt_start))
 
 if __name__ == "__main__":
     main()
