@@ -1,7 +1,7 @@
 """
 Easy way to play a game of Higher Or Lower
 """
-from game_modes import *
+from game_modes import interactiveGamePlay
 
 def main():
 	interactiveGamePlay()

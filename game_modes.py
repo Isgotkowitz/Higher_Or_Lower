@@ -303,3 +303,90 @@ def Opt(numSuits, valueRange):
             value, secondAnswer = game.secondGuess(secondGuess)
             points += secondAnswer
     return points;
+
+"""
+def Opt(numSuits, valueRange):
+    """
+    #Function that makes guess with lowest expected points on every guess
+"""
+    game = HOLgame(valueRange, numSuits)
+
+    first_points_matrix = np.zeros((game.reValues.size, game.reValues.size))
+    for i in range(game.reValues.size):
+        for j in range(game.reValues.size):
+            if i == j:
+                first_points_matrix[i][j] = -5
+            else:
+                first_points_matrix[i][j] = abs(game.reValues[i] - game.reValues[j])
+    second_points_matrix = np.zeros((game.reValues.size, game.reValues.size))
+    for i in range(game.reValues.size):
+        for j in range(game.reValues.size):
+            if i == j:
+                second_points_matrix[i][j] = -3
+            else:
+                second_points_matrix[i][j] = abs(game.reValues[i] - game.reValues[j])
+    prob_vector = np.zeros(game.reValues.size)
+    j = 0
+    for i in range(game.deck.size):
+        # print(i)
+        if game.deck[i] != 0:
+            prob_vector[j] = game.deck[i]
+            j += 1
+    # ex_points_matrix = points_matrix@prob_vector
+
+    points = 0
+    while game.cardsInDeck > 0:
+        # # Generate optimal first guess
+        # points_matrix = np.zeros((game.reValues.size, game.reValues.size))
+        # for i in range(game.reValues.size):
+        #     for j in range(game.reValues.size):
+        #         if i == j:
+        #             points_matrix[i][j] = -5
+        #         else:
+        #             points_matrix[i][j] = abs(game.reValues[i] - game.reValues[j])
+        # prob_vector = np.zeros(game.reValues.size)
+        # j = 0
+        # for i in range(game.deck.size):
+        #     # print(i)
+        #     if game.deck[i] != 0:
+        #         prob_vector[j] = game.deck[i]
+        #         j += 1
+        # ex_points_matrix = points_matrix@prob_vector
+        # Generate optimal first guess
+        first_ex_points_matrix = np.delete(first_points_matrix@prob_vector, np.where(first_points_matrix@prob_vector == 0))
+        firstGuess = game.reValues[0]
+        firstGuessInd = 0
+        for i in range(0, len(ex_points_matrix)):
+            if first_ex_points_matrix[i] < first_ex_points_matrix[firstGuessInd]:
+                firstGuess = game.reValues[i]
+                firstGuessInd = i
+        firstAnswer = game.firstGuess(firstGuess + 1)
+        # Generate optimal second guess
+        if firstAnswer == -5:
+            points -= 5
+            # adjust points matrices
+            prob_vector[firstGuessInd] -= 1
+        else:
+            if firstAnswer == 0:
+                second_prob_vector = np.deepcopy(prob_vector)
+                second_ex_points_matrix =
+                secondGuess = game.reValues[0]
+                secondGuessInd = 0
+                for i in range(0, firstGuessInd - 1):
+                    if ex_points_matrix[i] < ex_points_matrix[secondGuessInd]:
+                        secondGuess = game.reValues[i]
+                        secondGuessInd = i
+                # secondGuess += 1
+            else:
+                secondGuess = game.reValues[0]
+                secondGuessInd = 0
+                for i in range(firstGuessInd + 1, len(ex_points_matrix)):
+                    if ex_points_matrix[i] < ex_points_matrix[secondGuessInd]:
+                        secondGuess = game.reValues[i]
+                        secondGuessInd = i
+                # secondGuess += 1
+            value, secondAnswer = game.secondGuess(secondGuess)
+            points += secondAnswer
+    return points;
+"""
+

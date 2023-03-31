@@ -11,14 +11,14 @@ from game_modes import *
 from multiprocessing import Process, Queue, Lock
 from timeit import default_timer as timer
 
-N_CORES = 12        # Max number of processes/threads that run at a time
+N_CORES = os.cpu_count        # Max number of processes/threads that run at a time
 
-NUM_GAMES = 2000   # Number of games each algorithm is tested over
+NUM_GAMES = 2000    # Number of games each algorithm is tested over
 NUM_SUITS = 4       # Number of suits each game is played with
 VAL_RANGE = 13      # Defines the value range over which each game is played
 
 dbg1 = 0
-dbg2 = 1
+dbg2 = 0
 timed = 1           # Turn on to measure time elapsed while testing
 
 """
